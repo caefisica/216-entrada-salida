@@ -3,8 +3,11 @@ import datetime
 
 minute_format = lambda m: m if len(str(m))!=1 else '0'+str(m)
 time_format = lambda x: f'{x.hour}:{minute_format(x.minute)}'
-
+check = []
 def main(page:ft.Page):
+    if datetime.datetime.now().hour == 0 and datetime.datetime.now().minute == 0 and datetime.datetime.now().second  == 0:
+        check = []
+
     entry = ft.Ref[ft.ElevatedButton]()
     leave = ft.Ref[ft.ElevatedButton]()
     checkin = ft.Text('Entrada registrada')
@@ -17,6 +20,7 @@ def main(page:ft.Page):
         page.controls.append(checkin)
         entry.current.disabled = True
         leave.current.disabled = False
+        check.append(True)
         page.update()
 
 
@@ -26,6 +30,7 @@ def main(page:ft.Page):
         page.controls.append(checkout)
         entry.current.disabled = False
         leave.current.disabled = True
+        check.remove(True)
         page.update()
 
 
